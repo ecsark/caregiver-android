@@ -5,9 +5,20 @@
               android:layout_height="fill_parent"
         >
     <TextView
-            android:layout_width="fill_parent"
+            android:id="@+id/name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World, HomeActivity"
+            android:textSize="24sp"
+            android:layout_margin="20dp"
             />
+
+    <Button
+            android:id="@+id/getdata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exchange"
+            android:layout_margin="20dp"
+            />
+
 </LinearLayout>
 
