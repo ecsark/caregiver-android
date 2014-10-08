@@ -19,7 +19,7 @@ public class HomeActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
-    TextView msg;
+    TextView question;
     Button getData;
 
     private static String domain = "http://10.0.2.2:9000/";
@@ -30,12 +30,12 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        msg = (TextView) findViewById(R.id.name);
+        question = (TextView) findViewById(R.id.question);
         getData = (Button) findViewById(R.id.getdata);
         getData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ExchangeGreeting().execute();
+                new ExchangeGreeting().execute("hello", "name", "Claire");
             }
         });
     }
@@ -59,8 +59,10 @@ public class HomeActivity extends Activity {
         protected Greeting doInBackground(String... params) {
             try {
                 Map<String, String> info = new HashMap<>();
-                info.put("name","Claire");
-                return JsonHelper.getJsonFromUrl(domain+"hello", gson.toJson(info), Greeting.class);
+                for (int i=1; i<params.length; i+=2) {
+                    info.put(params[i],params[i+1]);
+                }
+                return JsonHelper.getJsonFromUrl(domain+params[0], gson.toJson(info), Greeting.class);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -72,9 +74,9 @@ public class HomeActivity extends Activity {
         protected void onPostExecute(Greeting greeting) {
             pDialog.dismiss();
             if (greeting == null) {
-                msg.setText("Error");
+                question.setText("Error");
             } else {
-                msg.setText(greeting.greeting);
+                question.setText(greeting.greeting);
             }
         }
     }
