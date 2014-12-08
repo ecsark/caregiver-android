@@ -3,22 +3,30 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-        >
+              android:gravity="right" android:background="@drawable/bg">
     <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            android:layout_margin="20dp"
-            />
+            android:layout_margin="40dp"
+            android:textColor="#ffffffff"/>
 
     <Button
             android:id="@+id/getdata"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Exchange"
+            android:text="确认"
             android:layout_margin="20dp"
+            android:background="@drawable/btnup" android:gravity="center"
             />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg2"
+            android:id="@+id/downlowinterface">
+    </LinearLayout>
 
 </LinearLayout>
 
