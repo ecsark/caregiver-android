@@ -2,6 +2,7 @@ package com.care.caregiver;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +38,9 @@ public class HomeActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent=new Intent(HomeActivity.this,LoginActivity.class);
+        //if(!savedInstanceState.containsKey("loginsuccess"))
+            startActivity(intent);
         setContentView(R.layout.main);
 
         msg = (TextView) findViewById(R.id.name);
