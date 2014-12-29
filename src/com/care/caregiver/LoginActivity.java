@@ -25,7 +25,8 @@ public class LoginActivity extends Activity{
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+                FirstLogin fLogin=new FirstLogin();
+                fLogin.doInBackground("{usr:xxx,pwd:yyy}");
             }
         });
     }

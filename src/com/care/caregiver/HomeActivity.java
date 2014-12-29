@@ -24,7 +24,7 @@ public class HomeActivity extends Activity {
     TextView msg;
     Button getData;
 
-    private static String domain = "http://192.168.1.110:9000/";
+    private static String domain = "http://10.171.6.238:9000/";
     private Gson gson = new Gson();
 
     private String descriptions[][]={{"腹痛","感冒","发烧","体虚"},{"5分钟","10分钟","30分钟","1小时"},{"轻微","显著","严重","剧烈"},{"持续","阵发","阵发伴随持续","其他"}};
@@ -38,24 +38,25 @@ public class HomeActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent=new Intent(HomeActivity.this,LoginActivity.class);
-        //if(!savedInstanceState.containsKey("loginsuccess"))
-            startActivity(intent);
+
         setContentView(R.layout.main);
+        Intent intent=new Intent(HomeActivity.this,MainConversation.class);
+        //if(!savedInstanceState.containsKey("loginsuccess"))
+        startActivity(intent);
 
         msg = (TextView) findViewById(R.id.name);
         getData = (Button) findViewById(R.id.getdata);
         downLayout=(LinearLayout)findViewById(R.id.downlowinterface);
         symptoms=new RadioGroup(this);
-        /*getData.setOnClickListener(new View.OnClickListener() {
+        getData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new ExchangeGreeting().execute();
             }
-        });*/
+        });
         updateView();
         msg.setText(response[progress]);
-        getData.setOnClickListener(new View.OnClickListener(){
+        /*getData.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 downLayout.removeAllViews();
@@ -70,7 +71,7 @@ public class HomeActivity extends Activity {
                     updateView();
                 }
             }
-        });
+        });*/
     }
 
     private void updateView(){

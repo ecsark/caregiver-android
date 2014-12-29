@@ -8,6 +8,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -50,6 +52,29 @@ public class JsonHelper {
         Reader reader = new InputStreamReader(httpEntity.getContent());
 
         T jsonClass = gson.fromJson(reader, clazz);
+        return jsonClass;
+    }
+
+    public static Object getJsonFromUrl(String url, String json) throws IOException, JSONException, ClassNotFoundException {
+
+        DefaultHttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(url);
+        StringEntity stringEntity = new StringEntity(json);
+        stringEntity.setContentType("application/json;charset=UTF-8");
+        stringEntity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+        httpPost.setEntity(stringEntity);
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+        HttpEntity httpEntity = httpResponse.getEntity();
+
+        Reader reader = new InputStreamReader(httpEntity.getContent());
+
+        JSONObject jObject=new JSONObject(reader.toString());
+        String typeName=jObject.getString("type");
+
+        Class<?> classType = Class.forName(typeName);
+
+
+        Object jsonClass = gson.fromJson(reader, classType);
         return jsonClass;
     }
 }
