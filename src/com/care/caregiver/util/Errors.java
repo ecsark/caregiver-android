@@ -3,23 +3,15 @@ package com.care.caregiver.util;
 import android.content.Context;
 import com.care.caregiver.MainConversation;
 import com.care.caregiver.conversation.ConversationQuestions;
-import com.google.gson.annotations.SerializedName;
 
 /**
- * User: ecsark
- * Date: 10/3/14
- * Time: 22:05
+ * Created by RedAlice64 on 2014/12/29.
  */
-public class Greeting extends ServerResponse{
-
-    @SerializedName("greeting")
-    public String greeting;
-
-
+public class Errors extends ServerResponse{
     @Override
     public void ShowDialog(Context context) {
         MainConversation mQuestions=(MainConversation)context;
         mQuestions.addConversation(new ConversationQuestions(context));
-        return;
+
     }
 }

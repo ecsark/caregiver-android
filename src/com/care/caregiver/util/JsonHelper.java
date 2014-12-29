@@ -3,7 +3,11 @@ package com.care.caregiver.util;
 import com.google.gson.Gson;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
@@ -14,6 +18,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
 /**
  * User: ecsark
@@ -21,6 +26,8 @@ import java.io.Reader;
  * Time: 21:45
  */
 public class JsonHelper {
+
+    private static CookieStore cStore=null;
 
     private static final Gson gson = new Gson();
 
@@ -55,16 +62,24 @@ public class JsonHelper {
         return jsonClass;
     }
 
-    public static Object getJsonFromUrl(String url, String json) throws IOException, JSONException, ClassNotFoundException {
+    public static ServerResponse getJsonFromUrl(String url, String json) throws IOException, JSONException, ClassNotFoundException {
 
         DefaultHttpClient httpClient = new DefaultHttpClient();
+        //if(cStore!=null)httpClient.setCookieStore(cStore);
         HttpPost httpPost = new HttpPost(url);
         StringEntity stringEntity = new StringEntity(json);
         stringEntity.setContentType("application/json;charset=UTF-8");
         stringEntity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
         httpPost.setEntity(stringEntity);
         HttpResponse httpResponse = httpClient.execute(httpPost);
+        StatusLine status=httpResponse.getStatusLine();
+        if(status.getStatusCode()!=200){
+            return new Errors();
+        }
         HttpEntity httpEntity = httpResponse.getEntity();
+
+        if(cStore==null)cStore=  httpClient.getCookieStore();
+        List<Cookie> cookieList=cStore.getCookies();
 
         Reader reader = new InputStreamReader(httpEntity.getContent());
 
@@ -74,7 +89,7 @@ public class JsonHelper {
         Class<?> classType = Class.forName(typeName);
 
 
-        Object jsonClass = gson.fromJson(reader, classType);
+        ServerResponse jsonClass = (ServerResponse)gson.fromJson(reader, classType);
         return jsonClass;
     }
 }

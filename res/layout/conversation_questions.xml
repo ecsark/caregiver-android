@@ -12,12 +12,13 @@
             android:layout_height="200dp"
             card_view:cardCornerRadius="4dp"
             android:background="#ff00c1c9">
-
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="#ff00ff00"></LinearLayout>
         <TextView
                 android:id="@+id/question_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        <RadioGroup android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <RadioGroup android:layout_width="fill_parent" android:layout_height="fill_parent"
+                android:layout_marginTop="40dp">
             <RadioButton android:id="@+id/first_selection" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="第一项"/>
             <RadioButton android:id="@+id/second_selection" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="第二项"/>
             <RadioButton android:id="@+id/third_selection" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="第三项"/>

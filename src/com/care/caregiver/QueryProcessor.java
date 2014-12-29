@@ -25,7 +25,7 @@ public class QueryProcessor {
         try {
             HttpClient client = new DefaultHttpClient();
             HttpPost request = new HttpPost();
-            request.setURI(new URI("http://ecnet.co.vu//ask/"));
+            request.setURI(new URI("http://ecnet.co.vu//ask//"));
             List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
             postParameters.add(new BasicNameValuePair("json", jsonString));
             UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(
